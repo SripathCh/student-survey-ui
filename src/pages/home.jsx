@@ -14,7 +14,7 @@ const Home = () => {
     };
   return (
     <>
-      <div className="container mt-3 title-container">
+      <div className="container mt-3 title-container" style={{minWidth:"70%"}}>
         <h1>Welcome to the Student Survey Form Home Page!!!</h1>
         <button onClick={redirectToStudentSurveyForm} type="button" class="btn btn-primary">
           Submit Form
