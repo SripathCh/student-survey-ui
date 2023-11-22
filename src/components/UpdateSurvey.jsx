@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
-import Spinner from './Spinner';
+import Spinner from "./Spinner";
 
 const UpdateSurvey = () => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const UpdateSurvey = () => {
       }
       const FinalData = await response.json();
       setData(FinalData);
-      console.log(FinalData)
+      console.log(FinalData);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -127,7 +127,7 @@ const UpdateSurvey = () => {
 
   if (isLoading) {
     return <Spinner />; // Use the Spinner component
-}
+  }
 
   return (
     <div
