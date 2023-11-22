@@ -1,18 +1,19 @@
+
 body {
-    margin-top: 15%;
-    background: url("../images/gmubg.png");
+    margin-top: 15% ;
+    background: url("../images/gmubg.png") ;
 }
 
 .title-container {
-    background-color: white;
+    background-color: white ;
     border-radius: 6px;
     width: 70%;
     height: 40%;
     text-align: center;
-    padding: 5%;
+    padding: 5% ;
 }
 
 .btn {
-    padding: 3%;
-    margin: 2%;
+    padding: 3% ;
+    margin: 2% ;
 }

@@ -1,17 +1,16 @@
 import React from "react";
-// import { Navbar, Nav } from 'react-bootstrap';
-import HomeStyles from "../styles/home.css"; // Uncomment if you have custom styles
+import "../styles/home.css"; // Uncomment if you have custom styles
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const navigate = useNavigate();
 
     const redirectToStudentSurveyForm = () => {
-        navigate('../components/SubmitSurveyForm.jsx'); // Replace with your first path
+        navigate('/submit-survey'); // Replace with your first path
     };
 
     const redirectToUpdateSurveyPage = () => {
-        navigate('../components/UpdateSurvey.jsx'); // Replace with your second path
+        navigate('/update-survey'); // Replace with your second path
     };
   return (
     <>
@@ -35,8 +34,5 @@ const Home = () => {
     </>
   );
 };
-export function links() {
-  return [{ rel: "stylesheet", href: HomeStyles }];
-}
 
 export default Home;
