@@ -1,0 +1,29 @@
+/*    Name: Sripath Cherukuri
+      G-Number: G01395231
+      Course: SWE-645  
+*/
+
+
+body {
+    background-color: black;
+}
+
+.container {
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  margin: 1.05px;
+}

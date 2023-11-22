@@ -1,16 +1,26 @@
 import React from "react";
 // import { Navbar, Nav } from 'react-bootstrap';
 import HomeStyles from "../styles/home.css"; // Uncomment if you have custom styles
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const redirectToStudentSurveyForm = () => {
+        navigate('../components/SubmitSurveyForm.jsx'); // Replace with your first path
+    };
+
+    const redirectToUpdateSurveyPage = () => {
+        navigate('../components/UpdateSurvey.jsx'); // Replace with your second path
+    };
   return (
     <>
       <div className="container mt-3 title-container">
         <h1>Welcome to the Student Survey Form Home Page!!!</h1>
-        <button type="button" class="btn btn-primary">
+        <button onClick={redirectToStudentSurveyForm} type="button" class="btn btn-primary">
           Submit Form
         </button>
-        <button type="button" class="btn btn-warning">
+        <button onClick={redirectToUpdateSurveyPage} type="button" class="btn btn-warning">
           View / Delete / Update Survey
         </button>
 
