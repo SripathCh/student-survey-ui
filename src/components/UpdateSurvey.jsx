@@ -1,9 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
+import Spinner from './Spinner';
 
 const UpdateSurvey = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [data, setData] = useState([
+    {
+      id: 2,
+      city: "Louisville",
+      state: "KY",
+      zip: 40233,
+      telephone: "5022176695",
+      email: "ctander1@blinklist.com",
+      likings: ["Campus", "Friends"],
+      interest: "Television",
+      recommendation: "Very Likely",
+      comments: "Robust intangible interface",
+      firstName: "Consalve",
+      lastName: "Tander",
+      streetAddress: "9 Fair Oaks Way",
+      dateOfSurvey: "2022-09-29",
+    },
+  ]);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:8080/api/surveys");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const FinalData = await response.json();
+      setData(FinalData);
+      console.log(FinalData)
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleEdit = (row) => {
     console.log("Edit", row);
   };
@@ -15,17 +57,17 @@ const UpdateSurvey = () => {
   const columns = [
     {
       name: "First Name",
-      selector: (row) => row.firstname,
+      selector: (row) => row.firstName,
       sortable: true,
     },
     {
       name: "Last Name",
-      selector: (row) => row.lastname,
+      selector: (row) => row.lastName,
       sortable: true,
     },
     {
       name: "Street Address",
-      selector: (row) => row.streetaddress,
+      selector: (row) => row.streetAddress,
     },
     {
       name: "City",
@@ -49,7 +91,7 @@ const UpdateSurvey = () => {
     },
     {
       name: "Date of Survey",
-      selector: (row) => row.dateofsurvey,
+      selector: (row) => row.dateOfSurvey,
     },
     {
       name: "Likings",
@@ -79,28 +121,13 @@ const UpdateSurvey = () => {
     },
   ];
 
-  const [data, setData] = useState([
-    {
-      id: 1,
-      firstname: "UpdatedFirstName",
-      lastname: "UpdatedLastName",
-      streetaddress: "123 Updated Street",
-      city: "UpdatedCity",
-      state: "UpdatedState",
-      zip: 12345,
-      telephone: "123-456-7890",
-      email: "updated.email@example.com",
-      dateofsurvey: "2023-11-25",
-      likings: ["UpdatedLiking1", "UpdatedLiking2"],
-      interest: "UpdatedInterest",
-      recommendation: "UpdatedRecommendation",
-      comments: "Updated comments about the survey",
-    },
-  ]);
-
   const redirectToHomePage = () => {
-    navigate("/"); 
+    navigate("/");
   };
+
+  if (isLoading) {
+    return <Spinner />; // Use the Spinner component
+}
 
   return (
     <div

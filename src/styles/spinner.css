@@ -1,0 +1,30 @@
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Change to fixed */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.7); /* Translucent black */
+  z-index: 9999; /* Ensure it's above other content */
+}
+
+.spinner {
+  border: 5px solid rgba(0, 0, 0, 0.9);
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  border-radius: 50%;
+  border-left-color: #09f;
+  animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
