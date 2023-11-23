@@ -48,10 +48,29 @@ const UpdateSurvey = () => {
 
   const handleEdit = (row) => {
     console.log("Edit", row);
+    navigate(`/edit-survey/${row.id}`);
   };
 
-  const handleDelete = (row) => {
+  const handleDelete = async (row) => {
     console.log("Delete", row);
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/surveys/${row.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error in deletion");
+      }
+
+      // Record deleted successfully
+      console.log("Record deleted:", row.id);
+      window.location.reload(); // Reloads the current page
+    } catch (error) {
+      console.error("Deletion failed:", error);
+    }
   };
 
   const columns = [
@@ -137,7 +156,7 @@ const UpdateSurvey = () => {
       <button
         onClick={redirectToHomePage}
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary"
       >
         Back to Home
       </button>

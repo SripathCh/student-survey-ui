@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/submitsurveyform.css";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Toast } from "react-bootstrap";
 
-const SubmitSurveyForm = () => {
-  const navigate = useNavigate();
+const SubmitSurveyForm = ({ id, isEditMode }) => {
+  console.log();
+  const navigate = useNavigate(id, isEditMode);
+
   const redirectToHomePage = () => {
     navigate("/");
   };
@@ -20,13 +24,23 @@ const SubmitSurveyForm = () => {
     // Reassemble in the desired format "yyyy-MM-dd"
     return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
   };
+
+  useEffect(() => {
+    if (isEditMode && id) {
+      fetch(`http://localhost:8080/api/surveys/${id}`)
+        .then((response) => response.json())
+        .then((data) => setFormData(data))
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [id, isEditMode]);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     streetAddress: "",
     city: "",
     state: "",
-    zip: 0,
+    zip: "",
     telephone: "",
     email: "",
     likings: [],
@@ -45,13 +59,16 @@ const SubmitSurveyForm = () => {
       .filter((num) => !isNaN(parseInt(num, 10)) && num.trim() !== "");
 
     if (numbers.length === 10) {
+      const endpoint = isEditMode
+        ? `http://localhost:8080/api/surveys/${id}`
+        : "http://localhost:8080/api/surveys";
+      const method = isEditMode ? "PUT" : "POST";
+
       try {
         console.log(formData);
-        const response = await fetch("http://localhost:8080/api/surveys", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+        const response = await fetch(endpoint, {
+          method: method,
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
 
@@ -61,6 +78,7 @@ const SubmitSurveyForm = () => {
 
         const data = await response.json();
         console.log("Success:", data);
+        navigate("/");
       } catch (error) {
         console.error("Error:", error);
       }
@@ -97,7 +115,9 @@ const SubmitSurveyForm = () => {
   return (
     <div className="wholediv">
       <center>
-        <p className="h1 text-center">Student Survey Form</p>
+        <p className="h1 text-center">
+          {isEditMode ? "Edit Survey Form" : "Student Survey Form"}
+        </p>
       </center>
       <form id="surveyForm" className="form-group" onSubmit={handleSubmit}>
         {/* First Name */}

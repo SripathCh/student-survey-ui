@@ -16,10 +16,10 @@ const Home = () => {
     <>
       <div className="container mt-3 title-container" style={{minWidth:"70%"}}>
         <h1>Welcome to the Student Survey Form Home Page!!!</h1>
-        <button onClick={redirectToStudentSurveyForm} type="button" class="btn btn-primary">
+        <button onClick={redirectToStudentSurveyForm} type="button" className="btn btn-primary">
           Submit Form
         </button>
-        <button onClick={redirectToUpdateSurveyPage} type="button" class="btn btn-warning">
+        <button onClick={redirectToUpdateSurveyPage} type="button" className="btn btn-warning">
           View / Delete / Update Survey
         </button>
 
