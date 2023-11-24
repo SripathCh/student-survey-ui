@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import Toast from './Toast';
+
+
 
 const UpdateSurvey = () => {
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,11 +72,16 @@ const UpdateSurvey = () => {
 
       // Record deleted successfully
       console.log("Record deleted:", row.id);
-      window.location.reload(); // Reloads the current page
+      setToastMessage(`Record with ID ${row.id} deleted successfully.`);
+      setShowToast(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       console.error("Deletion failed:", error);
     }
   };
+
 
   const columns = [
     {
@@ -149,20 +159,15 @@ const UpdateSurvey = () => {
   }
 
   return (
-    <div
-      className="container title-container"
-      style={{ minWidth: "70%", minHeight: "70%" }}
-    >
-      <button
-        onClick={redirectToHomePage}
-        type="button"
-        className="btn btn-primary"
-      >
-        Back to Home
-      </button>
-      <DataTable title="Survey Data" columns={columns} data={data} pagination />
-      ;
-    </div>
+    <>
+      {showToast && <Toast message={toastMessage} onClose={() => setShowToast(false)} />}
+      <div className="container title-container" style={{ minWidth: "100%", minHeight: "65%" }}>
+        <button onClick={redirectToHomePage} type="button" className="btn btn-primary">
+          Back to Home
+        </button>
+        <DataTable title="Survey Data" columns={columns} data={data} pagination />
+      </div>
+    </>
   );
 };
 
